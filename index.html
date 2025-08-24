@@ -451,7 +451,7 @@ document.body.removeChild(docLink);
 
 
 // Prepare data storing in web (google sheet)
-const resultData = {
+const resultDataWeb = {
   name: document.getElementById('name').value,
   roll: document.getElementById('roll').value,
   correctWords: s.matches,
@@ -465,7 +465,7 @@ const resultData = {
 // Send data to Google Sheets
 fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9iQ9h_XPfsFtF79oR41yzogRIYKzD2baWqGd/exec', {
   method: 'POST',
-  body: JSON.stringify(resultData),
+  body: JSON.stringify(resultDataWeb),
   headers: {
     'Content-Type': 'application/json'
   }
@@ -547,6 +547,7 @@ fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9i
   </script>
 </body>
 </html>
+
 
 
 
