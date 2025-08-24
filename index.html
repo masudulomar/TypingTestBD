@@ -463,7 +463,7 @@ const resultData = {
 };
 
 // Send data to Google Sheets
-fetch('https://script.google.com/macros/s/AKfycbyqD8iht38pFXq3waTCtYJZ9DYHbesrDOfzmuTJyEnfuMQnHRW70RtID4J2qRSebxQ3/exec', {
+fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9iQ9h_XPfsFtF79oR41yzogRIYKzD2baWqGd/exec', {
   method: 'POST',
   body: JSON.stringify(resultData),
   headers: {
@@ -473,7 +473,7 @@ fetch('https://script.google.com/macros/s/AKfycbyqD8iht38pFXq3waTCtYJZ9DYHbesrDO
 .then(res => res.json())
 .then(res => console.log('Sheet response:', res))
 .catch(err => console.error('Error sending to sheet:', err));
-
+//data storing in web ends
 
     }
 
@@ -547,6 +547,7 @@ fetch('https://script.google.com/macros/s/AKfycbyqD8iht38pFXq3waTCtYJZ9DYHbesrDO
   </script>
 </body>
 </html>
+
 
 
 
