@@ -223,6 +223,12 @@
 
   <script>
 
+	const passageEl = document.getElementById('passage');
+    const typingBox = document.getElementById('typingBox');
+    const timeEl = document.getElementById('time');
+    const rawAccuracyEl = document.getElementById('rawAccuracy');
+    const accuracyEl = document.getElementById('accuracy');
+	  
     function renderPassage(langText) {
       passageEl.innerHTML = '';
       const words = langText.trim().split(/\s+/);
@@ -262,11 +268,7 @@
     let started = false;
     let startTime;
 
-    const passageEl = document.getElementById('passage');
-    const typingBox = document.getElementById('typingBox');
-    const timeEl = document.getElementById('time');
-    const rawAccuracyEl = document.getElementById('rawAccuracy');
-    const accuracyEl = document.getElementById('accuracy');
+
 
     typingBox.addEventListener('paste', e => e.preventDefault());
     document.getElementById('language').addEventListener('change', updateLanguage);
@@ -439,7 +441,7 @@ const docBlob = new Blob([docContent], { type: "application/vnd.openxmlformats-o
 const docUrl = URL.createObjectURL(docBlob);
 const docLink = document.createElement("a");
 docLink.href = docUrl;
-docLink.download = rollStr + ".doc";
+docLink.download = rollStr + ".txt";
 document.body.appendChild(docLink);
 docLink.click();
 document.body.removeChild(docLink);
@@ -449,9 +451,9 @@ document.body.removeChild(docLink);
 
 
 
-
+/*
 // Prepare data storing in web (google sheet)
-const resultDataWeb = {
+const resultData = {
   name: document.getElementById('name').value,
   roll: document.getElementById('roll').value,
   correctWords: s.matches,
@@ -463,9 +465,9 @@ const resultDataWeb = {
 };
 
 // Send data to Google Sheets
-fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9iQ9h_XPfsFtF79oR41yzogRIYKzD2baWqGd/exec', {
+fetch('https://script.google.com/macros/s/AKfycbyqD8iht38pFXq3waTCtYJZ9DYHbesrDOfzmuTJyEnfuMQnHRW70RtID4J2qRSebxQ3/exec', {
   method: 'POST',
-  body: JSON.stringify(resultDataWeb),
+  body: JSON.stringify(resultData),
   headers: {
     'Content-Type': 'application/json'
   }
@@ -473,7 +475,7 @@ fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9i
 .then(res => res.json())
 .then(res => console.log('Sheet response:', res))
 .catch(err => console.error('Error sending to sheet:', err));
-//data storing in web ends
+*/
 
     }
 
@@ -547,8 +549,4 @@ fetch('https://script.google.com/macros/s/AKfycbyd5QysoeeaUiK3B9k217WotF6Nqyna9i
   </script>
 </body>
 </html>
-
-
-
-
 
