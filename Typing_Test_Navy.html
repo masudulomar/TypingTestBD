@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangladesh Navy Civil Recruitment 2025 - Lab Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 1%;
+      text-align: center;
+      margin-top: 1.25%;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #174f9c;
+    }
+
+    .container {
+      background: #fff;
+      padding: 1%;
+      border-radius: 2%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 2%;
+      width: 90%;
+      max-width: 70%;
+    }
+
+    label {
+      font-weight: 500;
+      margin-right: 0.5%;
+      margin-top: 0.8%;
+      margin-left: 3%;
+    }
+
+    .inputs {
+      width: 80%;
+      margin: 0.75% auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    input[type="text"], select {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 6px 0 12px 0;
+      font-size: 14px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 130px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      resize: none;
+      margin-top: 10px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Arial, sans-serif;
+    }
+
+    textarea.bangla-font {
+      font-family: SolaimanLipi, Nikosh, AdorshoLipi, SutonnyMJ, Kalpurush, Noto Sans Bengali, Arial, sans-serif;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 10px 18px;
+      margin: 12px 5px;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(to bottom, #33ccff 0%, #000066 100%);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Result Modal */
+    #resultModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    #resultModal.open {
+      display: flex;
+    }
+
+    #resultContent {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      max-width: 450px;
+      width: 100%;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    #resultContent h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.8em;
+      color: #174f9c;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .result-stats div {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @font-face {
+      font-family: 'AdorshoLipi';
+      src: url('fonts/AdorshoLipi.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'Nikosh';
+      src: url('fonts/Nikosh.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SutonnyMJ';
+      src: url('fonts/SutonnyMJ.woff') format('woff');
+    }
+  </style>
+</head>
+<body>
+  <header id="pageHeader">Bangladesh Navy Civil Recruitment 2025 - Lab Test</header>
+
+  <div class="inputs">
+    <label for="language">Language:</label>
+    <select id="language">
+      <option value="notselected">Not Selected</option>
+      <option value="english">English</option>
+      <option value="bangla">বাংলা</option>
+    </select>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name">
+
+    <label for="roll">Roll No:</label>
+    <input type="text" id="roll">
+  </div>
+
+  <div class="container">
+    <p id="passage" style="text-align: justify"></p>
+    <textarea id="typingBox" placeholder="Start typing here..."></textarea>
+
+    <div class="stats">
+      <span>Time Left: <span id="time">300</span>s</span>
+      <span>Raw Accuracy: <span id="rawAccuracy">100%</span></span>
+      <span>Adjusted Accuracy: <span id="accuracy">0%</span></span>
+      <span>Correct: <span id="liveCorrect">0</span> | Wrong: <span id="liveWrong">0</span></span>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="finishTest()">Finish Now</button>
+      <button onclick="resetTest()">Reset</button>
+    </div>
+  </div>
+
+  <div id="resultModal">
+    <div id="resultContent">
+      <h2>Test Result</h2>
+      <div class="result-stats">
+        <div><strong>Name:</strong> <span id="rName"></span></div>
+        <div><strong>Roll No:</strong> <span id="rRoll"></span></div>
+        <div>Correct Words: <span id="rCorrectWords"></span></div>
+        <div>Wrong Words: <span id="rWrongWords"></span></div>
+        <div><strong>Raw Accuracy:</strong> <span id="rrawAccuracy"></span></div>
+        <div><strong>Adjusted Accuracy:</strong> <span id="rAccuracy"></span></div>
+        <div><strong>Speed:</strong> <span id="rSpeed"></span> WPM</div>
+	<div><strong>Marks:</strong> <span id="rMarks"></span></div>
+
+      </div>
+      <button style="margin-top:20px;" onclick="closeResult()">Close</button>
+    </div>
+  </div>
+
+  <script>
+
+    function renderPassage(langText) {
+      passageEl.innerHTML = '';
+      const words = langText.trim().split(/\s+/);
+      words.forEach((word, idx) => {
+        const span = document.createElement('span');
+        span.innerText = word + ' ';
+        span.id = 'word_' + idx;
+        passageEl.appendChild(span);
+      });
+    }
+
+    function resetTest() {
+      clearInterval(timer);
+      timeLeft = 300;
+      timeEl.innerText = timeLeft;
+      started = false;
+      typingBox.value = "";
+
+      rawAccuracyEl.innerText = "100%";
+      accuracyEl.innerText = "0%";
+      document.getElementById('liveCorrect').innerText = 0;
+      document.getElementById('liveWrong').innerText = 0;
+      document.getElementById('rCorrectWords').innerText = 0;
+      document.getElementById('rWrongWords').innerText = 0;
+      document.getElementById('resultModal').classList.remove('open');
+
+      document.getElementById('passage').querySelectorAll('span').forEach(span => span.style.color = 'black');
+
+    }
+
+    const notselectedText = "";
+    const englishText = "The 'war on drugs' is a policy term in the United States that describes the government's longstanding campaign aiming to combat drug trafficking and drug use, both on the domestic and international levels. The US government's measures included prohibitive legislation, military assistance to other states in the fight against drug cartels, and military intervention (Godlee & Hurley, 2016). This paper aims to discuss the concept of the 'war on drugs' and identify its adverse effects on society. As can be seen from history, the consequences of the policies' implementation are controversial. Hence, it cannot be stated that the 'war on drugs' has been successful; instead, it caused more harm than good. As Lilly, Cullen, and Ball (2018) report, 'testing replaces the due process assumption of innocence with an assumption of guilt until proven otherwise' (p. 308). Besides, prohibition has led to less safe drug consumption, made drugs more expensive, and paradoxically increased the spread of drug use (Godlee & Hurley, 2016). Thus, strict measures have proven to be unsuccessful. To sum up, the 'war on drugs' is a continuous and complex process aiming to decrease drug use among the US population, which has negatively affected society. As practice shows, the governmental measures have more adverse effects in the fields of health care, safety, and human rights, than positive effects in the fight against drugs. Therefore, the implementations need to be redesigned, and the issue of drug use needs to be approached with the consideration of social, economic, and human factors.";
+    const banglaText = "মা-বাবার একজন বা দুজনেরই মায়োপিয়া থাকলে শিশুরা বেশি ঝুঁকিতে থাকে। দীর্ঘ সময় ডিজিটাল স্ক্রিন বা বইয়ের দিকে তাকিয়ে থাকলে, মুঠোফোন, ট্যাব, কম্পিউটার ও বই পড়ার সময় বেশি হলে চোখের স্বাভাবিক বৃদ্ধি ব্যাহত হয়। সূর্যের আলোয় কম সময় কাটানো ও ঘরের কৃত্রিম আলোয় বেশি সময় থাকলেও মায়োপিয়া হয়। পড়ার সময় চোখ ও বইয়ের দূরত্ব ঠিক না রাখা, চোখে অতিরিক্ত চাপ প্রয়োগ ইত্যাদি কারণে হয়। চক্ষুবিশেষজ্ঞের পরামর্শ অনুযায়ী শিশুদের জন্য উপযুক্ত 'পাওয়ারের' চশমা নিতে হবে। নিম্নমাত্রার অ্যাট্রোপিন ড্রপ চোখে দিলেও মায়োপিয়ার অগ্রগতি ধীর হয়। স্পেশাল কন্ট্যাক্ট লেন্স বা অর্থোকেরাটোলজি লেন্স দেওয়া যেতে পারে। রাতে ব্যবহারযোগ্য এই লেন্স চোখের গঠন কিছু সময়ের জন্য পরিবর্তন করে। মায়োপিয়া কন্ট্রোল গ্লাস বা বিশেষ ধরনের কাচ ব্যবহার করা হয়, যা মায়োপিয়ার অগ্রগতি রোধে সাহায্য করে। কিছু বিষয় মেনে চললে শিশুর মায়োপিয়া হওয়ার ঝুঁকি কমে। প্রতিদিন অন্তত দুই ঘণ্টা সূর্যের আলোতে শিশুরা যাতে খেলাধুলা করতে পারে, সেই বিষয়ে খেয়াল রাখতে হবে। '২০-২০-২০' নিয়ম মেনে চলা অর্থাৎ প্রতি ২০ মিনিট পর ২০ সেকেন্ড ২০ ফুট দূরে তাকানো। বছরে অন্তত একবার চোখ পরীক্ষা করা। শিশুদের প্রতিদিনের স্ক্রিন ব্যবহার নির্ধারিত সময়ের মধ্যে রাখা। পড়াশোনার সময় সঠিক আলো ও চোখের দূরত্ব যেন থাকে। শিশুদের মায়োপিয়া বাড়তে থাকলে ভবিষ্যতে চোখে গুরুতর রোগ হওয়ার ঝুঁকি বেড়ে যায়। উচ্চ মাত্রার মায়োপিয়া থাকলে চোখের পর্দা ছিঁড়ে যাওয়ার ঝুঁকি বেড়ে যায়। গ্লুকোমা অর্থাৎ চোখের ভেতরে চাপ বেড়ে যাওয়া ও স্নায়ু ক্ষতির আশঙ্কা থাকে। রেটিনার কেন্দ্রীয় অংশের অবক্ষয়, যা স্থায়ী দৃষ্টিহানির কারণ হতে পারে। তুলনামূলকভাবে আগেভাগে চোখে ছানি হওয়ার ঝুঁকি বেশি। শিশুদের ভালোভাবে না দেখতে পারা তাদের শিক্ষা, খেলাধুলা ও সামাজিক মেলামেশায় প্রভাব ফেলে। শ্রেণিকক্ষে বোর্ড স্পষ্ট না দেখতে পাওয়া ও মনোযোগ হারানোর সমস্যা হয়। চশমা পরলে এ নিয়ে লজ্জা বা উপহাসের শিকার হতে হয় শিশুদের। কিছু খেলা বা বাহ্যিক কাজে অংশ নিতেও পারে না। চোখের সমস্যা থাকলে শিশুদের উদ্বেগ, ক্লান্তি ও সামাজিক বিচ্ছিন্নতার মতো সমস্যায় পড়তে হয়।";
+
+    let timeLeft = 300;
+    let timer;
+    let started = false;
+    let startTime;
+
+    const passageEl = document.getElementById('passage');
+    const typingBox = document.getElementById('typingBox');
+    const timeEl = document.getElementById('time');
+    const rawAccuracyEl = document.getElementById('rawAccuracy');
+    const accuracyEl = document.getElementById('accuracy');
+
+    typingBox.addEventListener('paste', e => e.preventDefault());
+    document.getElementById('language').addEventListener('change', updateLanguage);
+
+    function updateLanguage() {
+      const lang = document.getElementById('language').value;
+      typingBox.classList.remove('bangla-font');
+
+      if (lang === 'notselected') {
+        renderPassage(notselectedText);
+        resetTest();
+        document.getElementById('pageHeader').innerText = 'বাংলাদেশ নৌবাহিনী বেসামরিক কর্মচারী নিয়োগ ২০২৫ (ব্যাবহারিক)';
+      } else if (lang === 'english') {
+        renderPassage(englishText);
+        resetTest();
+        document.getElementById('pageHeader').innerText = 'বাংলাদেশ নৌবাহিনী বেসামরিক কর্মচারী নিয়োগ ২০২৫ (ব্যাবহারিক)';
+      } else {
+        renderPassage(banglaText);
+        resetTest();
+        typingBox.placeholder = "এখানে টাইপ করুন...";
+        typingBox.classList.add('bangla-font');
+        
+        document.getElementById('pageHeader').innerText = 'বাংলাদেশ নৌবাহিনী বেসামরিক কর্মচারী নিয়োগ ২০২৫ (ব্যাবহারিক)';
+      }
+    }
+
+    updateLanguage();
+
+    typingBox.addEventListener('input', () => {
+      if (!started) {
+        started = true;
+        startTime = new Date();
+        timer = setInterval(countdown, 1000);
+      }
+
+      const typed = typingBox.value;
+      const typedWords = typed.trim().split(/\s+/).filter(Boolean);
+      const targetWords = passageEl.innerText.trim().split(/\s+/);
+
+      let matches = 0;
+
+targetWords.forEach((word, idx) => {
+  const span = document.getElementById('word_' + idx);
+  if (!span) return;
+
+  // Reset background for all words
+  span.style.backgroundColor = 'transparent';
+
+  // Set text color
+  if (typedWords[idx] === word) {
+    span.style.color = 'green';
+    matches++;
+  } else if (typedWords[idx]) {
+    span.style.color = 'red';
+  } else {
+    span.style.color = 'black';
+  }
+});
+
+// Highlight the word currently being typed
+let currentWordIndex = typedWords.length - (typed.endsWith(' ') ? 0 : 1);
+if (currentWordIndex >= 0 && currentWordIndex < targetWords.length) {
+  const currentSpan = document.getElementById('word_' + currentWordIndex);
+  currentSpan.style.backgroundColor = '#a0c8ff'; // blue
+}
+
+      const wrongWords = Math.max(typedWords.length - matches, 0);
+      document.getElementById('liveCorrect').innerText = matches;
+      document.getElementById('liveWrong').innerText = wrongWords;
+
+      const precision = matches / typedWords.length || 0;
+      const recall = matches / targetWords.length || 0;
+      const f1 = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
+
+
+
+
+      if (matches + wrongWords > 0) {
+        rawAccuracyEl.innerText = Math.round((matches / (matches + wrongWords)) * 100) + "%";
+      } else {
+        rawAccuracyEl.innerText = "100%";   // default when nothing typed
+      }
+      accuracyEl.innerText = Math.round(f1 * 100) + "%";
+    });
+
+    function countdown() {
+      timeLeft--;
+      timeEl.innerText = timeLeft;
+      if (timeLeft <= 0) {
+        finishTest();
+      }
+    }
+
+    function finishTest() {
+      clearInterval(timer);
+
+      const typed = typingBox.value;
+      const target = passageEl.innerText;
+      const elapsedMs = (started && startTime) ? (new Date() - startTime) : 0;
+      const elapsedMinutes = elapsedMs > 0 ? elapsedMs / 60000 : 1;
+
+      const s = alignAndScore(typed, target);
+
+      //const correctWPM = Math.round(cumulativeCorrect / elapsedMinutes);
+      const correctWPM = Math.round(s.matches / elapsedMinutes);
+      const accuracyPercent = Math.round(s.f1 * 100);
+
+      const typedWords = typed.trim().split(/\s+/).filter(Boolean);
+      const wrongWords = typedWords.length - s.matches;
+      const rawAccuracyPercent = (s.matches + wrongWords > 0) ? Math.round((s.matches / (s.matches + wrongWords)) * 100) : 100;
+
+      document.getElementById('liveCorrect').innerText = s.matches;
+      document.getElementById('liveWrong').innerText = wrongWords;
+
+      document.getElementById('rName').innerText = document.getElementById('name').value;
+      document.getElementById('rRoll').innerText = document.getElementById('roll').value;
+      document.getElementById('rSpeed').innerText = correctWPM;
+      document.getElementById('rrawAccuracy').innerText = rawAccuracyPercent + "%";
+      document.getElementById('rAccuracy').innerText = accuracyPercent + "%";
+      document.getElementById('rCorrectWords').innerText = s.matches;
+      document.getElementById('rWrongWords').innerText = wrongWords;
+      document.getElementById('rMarks').innerText = (correctWPM * rawAccuracyPercent)/100;
+      //document.getElementById('rMarks').innerText = accuracyPercent;
+
+
+      document.getElementById('resultModal').classList.add('open');
+
+// --- Prepare CSV data code starts---
+const resultData = [
+  ['Name', 'Roll No', 'Correct Words', 'Wrong Words', 'Raw Accuracy', 'Adjusted Accuracy', 'WPM', 'Marks'],
+  [
+    document.getElementById('name').value,
+    document.getElementById('roll').value,
+    s.matches,
+    typedWords.length - s.matches,
+    rawAccuracyPercent + '%',
+    accuracyPercent + '%',
+    correctWPM,
+    (correctWPM * rawAccuracyPercent)/100
+  ]
+];
+
+// Downloading file
+const roll = document.getElementById("roll").value.trim(); // get roll from input box
+const rollStr = String(roll);
+// Convert to CSV string
+const csvContent = resultData.map(e => e.join(",")).join("\n");
+
+// Create a Blob and trigger download
+const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+const url = URL.createObjectURL(blob);
+const link = document.createElement("a");
+link.setAttribute("href", url);
+link.setAttribute("download", rollStr + ".csv"); // default filename
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+// --- Prepare CSV data Ends---
+
+
+// typed data saving in word ends
+
+// -------- Save typed passage to Word file --------
+let typedText = typingBox.value.trim();
+let docContent = `${typedText}`;
+
+// Create a blob for Word file
+
+const docBlob = new Blob([docContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+const docUrl = URL.createObjectURL(docBlob);
+const docLink = document.createElement("a");
+docLink.href = docUrl;
+docLink.download = rollStr + ".doc";
+document.body.appendChild(docLink);
+docLink.click();
+document.body.removeChild(docLink);
+
+// typed data saving in word ends
+
+
+
+
+/*
+// Prepare data storing in web (google sheet)
+const resultData = {
+  name: document.getElementById('name').value,
+  roll: document.getElementById('roll').value,
+  correctWords: s.matches,
+  wrongWords: typedWords.length - s.matches,
+  rawAccuracy: rawAccuracyPercent,
+  adjustedAccuracy: accuracyPercent,
+  wpm: correctWPM,
+  marks: (correctWPM * rawAccuracyPercent)/100
+};
+
+// Send data to Google Sheets
+fetch('https://script.google.com/macros/s/AKfycbyqD8iht38pFXq3waTCtYJZ9DYHbesrDOfzmuTJyEnfuMQnHRW70RtID4J2qRSebxQ3/exec', {
+  method: 'POST',
+  body: JSON.stringify(resultData),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(res => res.json())
+.then(res => console.log('Sheet response:', res))
+.catch(err => console.error('Error sending to sheet:', err));
+*/
+
+    }
+
+
+
+    function closeResult() {
+      document.getElementById('resultModal').classList.remove('open');
+    }
+
+
+    function tokenize(text) {
+      const t = text.trim();
+      if (!t) return [];
+      return t.split(/\s+/);
+    }
+
+    function alignAndScore(typedText, targetText) {
+      const ref = tokenize(targetText);
+      const hyp = tokenize(typedText);
+      const n = ref.length, m = hyp.length;
+
+      const dp = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+      for (let i = 0; i <= n; i++) dp[i][0] = i;
+      for (let j = 0; j <= m; j++) dp[0][j] = j;
+
+      for (let i = 1; i <= n; i++) {
+        for (let j = 1; j <= m; j++) {
+          const subCost = (ref[i - 1] === hyp[j - 1]) ? 0 : 1;
+          dp[i][j] = Math.min(
+            dp[i - 1][j] + 1,
+            dp[i][j - 1] + 1,
+            dp[i - 1][j - 1] + subCost
+          );
+        }
+      }
+
+      let i = n, j = m;
+      let matches = 0, subs = 0, ins = 0, dels = 0;
+
+      while (i > 0 || j > 0) {
+        if (i > 0 && j > 0) {
+          const subCost = (ref[i - 1] === hyp[j - 1]) ? 0 : 1;
+          if (dp[i][j] === dp[i - 1][j - 1] + subCost) {
+            if (subCost === 0) matches++;
+            else subs++;
+            i--; j--;
+            continue;
+          }
+        }
+        if (i > 0 && dp[i][j] === dp[i - 1][j] + 1) { // deletion
+          dels++;
+          i--;
+          continue;
+        }
+        if (j > 0 && dp[i][j] === dp[i][j - 1] + 1) { // insertion
+          ins++;
+          j--;
+          continue;
+        }
+        // Fallback (shouldn't hit)
+        if (i > 0) { dels++; i--; }
+        else { ins++; j--; }
+      }
+
+      const precision = (matches + ins + subs) > 0 ? (matches / (matches + ins + subs)) : 0;
+      const recall = n > 0 ? (matches / n) : 0;
+      const f1 = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
+
+      return { refCount: n, hypCount: m, matches, subs, ins, dels, precision, recall, f1 };
+    }
+  </script>
+</body>
+</html>
+
